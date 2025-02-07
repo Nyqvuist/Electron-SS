@@ -6,7 +6,12 @@
 
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <button>
+      Hello World!!
+      <script type="text/javascript">
+        var spawn = require("child_process").spawn;
+        spawn("powershell.exe", ["C:\\Users\\shira\\OneDrive\\Documents\\Stuff\\dateTimeCont.ps1"]);
+      </script>
+    </button>
   </body>
 </html>

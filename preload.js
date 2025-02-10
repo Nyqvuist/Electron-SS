@@ -4,7 +4,7 @@ const {spawn} = require('child_process');
 
 contextBridge.exposeInMainWorld('scriptCalls', {
     startZoom: () => {
-        spawn('cmd.exe', ['/c', 'C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Scripts\\hello.bat && pause'], {shell: true, detached: true});
+        spawn('cmd.exe', ['/k','C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Scripts\\hello.bat']);
         
     }
 })

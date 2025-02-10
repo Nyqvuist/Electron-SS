@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Nyqvuist/Electron-SS/issues"
   },
-  "homepage": "https://github.com/Nyqvuist/Electron-SS#readme"
+  "homepage": "https://github.com/Nyqvuist/Electron-SS#readme",
+  "devDependencies": {
+    "electron": "^34.1.1"
+  }
 }

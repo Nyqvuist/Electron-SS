@@ -1,6 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const {spawn, spawnSync} = require('child_process');
 
+//Need to filter .ps1 and .bat for different command calling.
 
 contextBridge.exposeInMainWorld('scriptCalls', {
     button: (path) => {

@@ -1,5 +1,8 @@
-const button = document.getElementById('zoom-button')
+const button = document.getElementById('button')
+const path = document.getElementById('button').value
 
 button.addEventListener('click', e=> {
-   window.scriptCalls.startZoom();
+   let data = window.scriptCalls.button(path);
+   document.getElementById('output').textContent = data;
+   console.log(data);
 })

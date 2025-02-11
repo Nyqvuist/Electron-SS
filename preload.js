@@ -1,10 +1,30 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const {spawn} = require('child_process');
+const {spawn, spawnSync} = require('child_process');
 
 
 contextBridge.exposeInMainWorld('scriptCalls', {
-    startZoom: () => {
-        spawn('cmd.exe', ['/k','C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Scripts\\hello.bat']);
+    button: (path) => {
+        
+        const child = spawnSync('cmd.exe', ['/c',`${path}`], {encoding: 'utf8'});
+        console.log("Process Finished.");
+        console.log("stdout: ", child.stdout);
+        return(child.stdout);
+
+        /*
+        child.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`)
+            output += data.toString();
+        })
+        
+        child.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+          
+        child.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+            return(output)
+        });
+        */
         
     }
 })

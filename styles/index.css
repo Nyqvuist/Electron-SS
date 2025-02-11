@@ -1,0 +1,17 @@
+.Title {
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 2px 2px #ff0000;
+}
+
+button {
+    font-size: 20px;
+    background-color: grey;
+    margin: 10px;
+}
+
+.OutputText {
+    align-self: flex-end;
+    text-align: center;
+}

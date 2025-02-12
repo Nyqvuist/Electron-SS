@@ -1,18 +1,17 @@
-const buttons = document.querySelectorAll("button")
+const buttons = document.querySelectorAll("button");
+const testBtn = document.getElementById("btn3");
+
+testBtn.addEventListener("click", e => {
+   window.createButtons.buttonScripts();
+
+})
 
 buttons.forEach(button => {
    button.addEventListener("click", e=> {
       let id = e.target.id;
-      let path = document.getElementById(`${id}`).value;
-      let data = window.scriptCalls.button(path);
+      let directory = document.getElementById(`${id}`).value;
+      let data = window.scriptCalls.scriptRun(directory);
       document.getElementById('output').textContent = data;
    })
 })
 
-/*
-btnContainer.addEventListener('click', e=> {
-   let data = window.scriptCalls.button(path);
-   document.getElementById('output').textContent = data;
-   console.log(data);
-})
-   */

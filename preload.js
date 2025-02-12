@@ -1,48 +1,36 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const {spawn, spawnSync} = require('child_process');
+const path = require('node:path')
+var fs = require('fs')
 
 //Need to filter .ps1 and .bat for different command calling.
 
 contextBridge.exposeInMainWorld('scriptCalls', {
-    button: (path) => {
-        
-        const child = spawnSync('cmd.exe', ['/c',`${path}`], {encoding: 'utf8'});
-        console.log("Process Finished.");
-        console.log("stdout: ", child.stdout);
-        return(child.stdout);
+    scriptRun: (directory) => {
 
-        /*
-        child.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`)
-            output += data.toString();
-        })
-        
-        child.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
-        });
-          
-        child.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
-            return(output)
-        });
-        */
-        
+        if(path.extname(`${directory}`) === '.bat'){
+            const child = spawnSync('cmd.exe', ['/c',`${directory}`], {encoding: 'utf8'});
+            return(child.stdout);
+        } else {
+            const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${directory}`], {encoding: 'utf8'});
+            return(child.stdout);
+        }
     }
 })
 
-/*
-const childC = spawn('cmd.exe', ['/c', `${path}`])
-spawn('powershell.exe', ['-ExecutionPolicy','Bypass','-file','C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Powershell Scripts\\startZoom.ps1'])
-
-childP.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`)
+contextBridge.exposeInMainWorld('createButtons', {
+    buttonScripts: () => {
+        const directory = "C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Scripts";
+        fs.readdir(directory, function (err, files) {
+            if(err){
+              console.error("Could not list the directory.", err);
+              process.exit(1);
+            }
+            files.forEach(element => {
+            //   const input = element;
+            //   const regOutput = input.replace(/\\/g, '\\\\');
+              console.log(element);
+            });
+          })
+    }
 })
-
-childP.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-});
-  
-childP.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-});
-*/

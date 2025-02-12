@@ -21,16 +21,13 @@ contextBridge.exposeInMainWorld('scriptCalls', {
 contextBridge.exposeInMainWorld('createButtons', {
     buttonScripts: () => {
         const directory = "C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Scripts";
-        fs.readdir(directory, function (err, files) {
-            if(err){
-              console.error("Could not list the directory.", err);
-              process.exit(1);
-            }
-            files.forEach(element => {
-            //   const input = element;
-            //   const regOutput = input.replace(/\\/g, '\\\\');
-              console.log(element);
-            });
-          })
+        
+        try {
+            const files = fs.readdirSync(`${directory}`);
+            return files.map(file => path.join(`${directory}`, file));
+        } catch (err){
+            console.error("Error reading directory: ", err);
+            return [];
+        }
     }
 })

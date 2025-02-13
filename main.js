@@ -3,19 +3,6 @@ const path = require('node:path');
 const fs = require('fs');
 //can loop through here, read directory and make buttons.
 
-loopDir = () => {
-  const directory = "/mnt/c/Users/shira/Documents/Stuff/Scripts";
-        const files = fs.readdirSync(directory);
-
-        files.forEach(file => {
-            if (path.extname(`${file}`) === '.bat' ||path.extname(`${file}`) === '.ps1'){
-              const fullDir = path.join(directory, file);
-              console.log(fullDir);
-            }
-        })
-}
-
-
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
@@ -31,8 +18,6 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow()
-  loopDir()
-  
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

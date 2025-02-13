@@ -4,6 +4,21 @@ const path = require('node:path')
 const fs = require('fs')
 
 //Need to filter .ps1 and .bat for different command calling.
+loopDir = () => {
+  const directory = "/mnt/c/Users/shira/Documents/Stuff/Scripts";
+        const files = fs.readdirSync(directory);
+
+        files.forEach(file => {
+            if (path.extname(`${file}`) === '.bat' ||path.extname(`${file}`) === '.ps1'){
+              const fullDir = path.join(directory, file);
+              console.log(fullDir);
+            }
+        })
+}
+
+contextBridge.exposeInMainWorld('appinit', loopDir);
+
+loopDir();
 
 contextBridge.exposeInMainWorld('scriptCalls', {
     scriptRun: (directory) => {

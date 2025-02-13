@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const { spawnSync} = require('child_process');
+const { spawnSync, execSync, execFileSync} = require('child_process');
 const path = require('node:path')
 const fs = require('fs')
 
@@ -7,7 +7,7 @@ let dirArr = [];
 
 //Need to filter .ps1 and .bat for different command calling.
 loopDir = () => {
-  const directory = "/mnt/c/Users/shira/Documents/Stuff/Scripts";
+  const directory = "/mnt/c/Scripts";
         const files = fs.readdirSync(directory);
 
         files.forEach(file => {
@@ -28,15 +28,35 @@ contextBridge.exposeInMainWorld('startWindow', {
     }
 })
 
+function wslToWindowsPath(wslPath) {
+    if (wslPath.startsWith('/mnt/')) {
+      const driveLetter = wslPath.charAt(5);
+      const windowsPath = `${driveLetter}:\\${wslPath.substring(7).replace(/\//g, '\\')}`;
+      const w = windowsPath.replace(/\\/g,'\\\\');
+      return w;
+    }
+      return wslPath;
+  }
+
 contextBridge.exposeInMainWorld('scriptCalls', {
     scriptRun: (directory) => {
 
-        if(path.extname(`${directory}`) === '.bat'){
-            const child = spawnSync('cmd.exe', ['/c',`${directory}`], {encoding: 'utf8'});
+        if(path.extname(`${wslToWindowsPath(directory)}`) === '.bat'){
+            console.log(wslToWindowsPath(directory));
+            const child = spawnSync('cmd.exe', ['/c',`${wslToWindowsPath(directory)}`], {encoding: 'utf8'});
             return(child.stdout);
         } else {
-            const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${directory}`], {encoding: 'utf8'});
+            const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${wslToWindowsPath(directory)}`], {encoding: 'utf8'});
             return(child.stdout);
         }
+
+        // if(path.extname(`${directory}`) === '.bat'){
+        //     console.log(directory)
+        //     const child = spawnSync('cmd.exe', ['/c',`${directory}`], {encoding: 'utf8'});
+        //     return(child.stdout);
+        // } else {
+        //     const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${directory}`], {encoding: 'utf8'});
+        //     return(child.stdout);
+        // }
     }
 })

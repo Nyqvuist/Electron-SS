@@ -2,11 +2,7 @@ const buttons = document.querySelectorAll("button");
 const testBtn = document.getElementById("btn3");
 
 testBtn.addEventListener("click", e => {
-   const files = window.createButtons.buttonScripts();
-   files.forEach(file => {
-      console.log(file);
-   })
-
+   window.createButtons.buttonScripts();
 })
 
 // buttons.forEach(button => {

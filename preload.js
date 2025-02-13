@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const {spawn, spawnSync} = require('child_process');
+const { spawnSync} = require('child_process');
 const path = require('node:path')
-var fs = require('fs')
+const fs = require('fs')
 
 //Need to filter .ps1 and .bat for different command calling.
 
@@ -20,14 +20,6 @@ contextBridge.exposeInMainWorld('scriptCalls', {
 
 contextBridge.exposeInMainWorld('createButtons', {
     buttonScripts: () => {
-        const directory = "C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Scripts";
         
-        try {
-            const files = fs.readdirSync(`${directory}`);
-            return files.map(file => path.join(`${directory}`, file));
-        } catch (err){
-            console.error("Error reading directory: ", err);
-            return [];
-        }
     }
 })

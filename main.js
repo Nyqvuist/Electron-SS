@@ -1,7 +1,16 @@
 const { app, BrowserWindow } = require('electron/main');
 const path = require('node:path');
+const fs = require('fs');
 //can loop through here, read directory and make buttons.
 
+loopDir = () => {
+  const directory = "/mnt/c/Users/shira/Documents/Stuff/Scripts";
+        const files = fs.readdirSync(directory);
+
+        files.forEach(file => {
+            console.log(file);
+        })
+}
 
 
 const createWindow = () => {
@@ -19,11 +28,13 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow()
+  loopDir()
   
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
+      
     }
   })
 })

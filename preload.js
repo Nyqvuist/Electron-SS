@@ -3,6 +3,8 @@ const { spawnSync} = require('child_process');
 const path = require('node:path')
 const fs = require('fs')
 
+let dirArr = [];
+
 //Need to filter .ps1 and .bat for different command calling.
 loopDir = () => {
   const directory = "/mnt/c/Users/shira/Documents/Stuff/Scripts";
@@ -11,7 +13,7 @@ loopDir = () => {
         files.forEach(file => {
             if (path.extname(`${file}`) === '.bat' ||path.extname(`${file}`) === '.ps1'){
               const fullDir = path.join(directory, file);
-              console.log(fullDir);
+              dirArr.push(fullDir);
             }
         })
 }
@@ -19,6 +21,12 @@ loopDir = () => {
 contextBridge.exposeInMainWorld('appinit', loopDir);
 
 loopDir();
+
+contextBridge.exposeInMainWorld('startWindow', {
+    grabDir: () => {
+        return dirArr;
+    }
+})
 
 contextBridge.exposeInMainWorld('scriptCalls', {
     scriptRun: (directory) => {
@@ -30,11 +38,5 @@ contextBridge.exposeInMainWorld('scriptCalls', {
             const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${directory}`], {encoding: 'utf8'});
             return(child.stdout);
         }
-    }
-})
-
-contextBridge.exposeInMainWorld('createButtons', {
-    buttonScripts: () => {
-        
     }
 })

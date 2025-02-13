@@ -5,6 +5,7 @@ testBtn.addEventListener("click", e => {
    window.createButtons.buttonScripts();
 })
 
+console.log(window.startWindow.grabDir());
 // buttons.forEach(button => {
 //    button.addEventListener("click", e=> {
 //       let id = e.target.id;

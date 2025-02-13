@@ -8,7 +8,10 @@ loopDir = () => {
         const files = fs.readdirSync(directory);
 
         files.forEach(file => {
-            console.log(file);
+            if (path.extname(`${file}`) === '.bat' ||path.extname(`${file}`) === '.ps1'){
+              const fullDir = path.join(directory, file);
+              console.log(fullDir);
+            }
         })
 }
 

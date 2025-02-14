@@ -1,11 +1,11 @@
 const buttonContainer = document.querySelector(".BtnContainer");
 const dirArray = window.startWindow.grabDir();
 
-for(let i = 0; i < dirArray.length; i++){
+for(let i = 0; i < dirArray[0].length; i++){
    const btn = document.createElement("button");
    btn.id = `btn${i+1}`;
-   btn.value = `${dirArray[i]}`;
-   btn.textContent = `test${i}`;
+   btn.value = `${dirArray[0][i]}`;
+   btn.textContent = `${dirArray[1][i]}`;
    buttonContainer.append(btn);
 }
 

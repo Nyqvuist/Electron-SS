@@ -3,15 +3,38 @@
     text-align: center;
     font-weight: bold;
     text-shadow: 2px 2px #ff0000;
+    font-size: 60px;
 }
 
 button {
     font-size: 20px;
     background-color: grey;
     margin: 10px;
+    font-family: inherit;
+    font-weight: bold;
 }
 
 .OutputText {
-    align-self: flex-end;
-    text-align: center;
+    border: 2px solid red;
+    width: 600px;
+    height: 150px;
+    position: fixed;
+    left: 50%;
+    bottom: -60px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    font-size: 25px;
+}
+
+[contentEditable=true]:empty:before {
+    content: attr(placeholder);
+    opacity: 0.6;
+  }
+
+.BtnContainer {
+    display: grid;
+    max-width: 500px;
+    margin: 0 auto;
+    grid-template-columns: 250px 250px;
+    gap: 10px;
 }

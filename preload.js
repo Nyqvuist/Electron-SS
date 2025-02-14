@@ -4,6 +4,7 @@ const path = require('node:path')
 const fs = require('fs')
 
 let dirArr = [];
+let nameArr = [];
 
 //Need to filter .ps1 and .bat for different command calling.
 loopDir = () => {
@@ -11,8 +12,10 @@ loopDir = () => {
         const files = fs.readdirSync(directory);
 
         files.forEach(file => {
-            if (path.extname(`${file}`) === '.bat' ||path.extname(`${file}`) === '.ps1'){
+            if (path.extname(`${file}`) === '.bat' || path.extname(`${file}`) === '.ps1'){
               const fullDir = path.join(directory, file);
+              const name = path.parse(file);
+              nameArr.push(name.name);
               dirArr.push(fullDir);
             }
         })
@@ -24,7 +27,7 @@ loopDir();
 
 contextBridge.exposeInMainWorld('startWindow', {
     grabDir: () => {
-        return dirArr;
+        return [dirArr, nameArr];
     }
 })
 

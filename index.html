@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grechen+Fuemen&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/index.css">
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
+    <meta 
+        http-equiv="Content-Security-Policy" >
+    <style>
+      body{
+        font-family: "Grechen Fuemen", serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
     <title>ScriptCave</title>
   </head>
   <body>
     <h1 class="Title">ScriptCave</h1>
     <div class="BtnContainer">
-      <!-- <button id="btn1" value="C:\\Users\\shira\\Documents\\Stuff\\Scripts\\DateTimeTest.ps1">Click Me At Home</button><br>
-      <button id="btn2" value="C:\\Users\\hassan.shirazi\\Desktop\\hello.bat">Click Me To Open Zoom</button>
-      <button id="btn3" value="C:\\Users\\hassan.shirazi\\OneDrive - Johnstone Supply NJ\\Documents\\Powershell Scripts\\startZoom.ps1">Click Me To Open Zoom w/ Powershell</button> -->
     </div>
     <script src="./renderer.js"></script>
-    <div class="OutputText" id="output"></div>
+    <div class="OutputText" id="output" contenteditable="true" placeholder="Output goes here..."></div>
   </body>
 </html>

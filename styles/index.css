@@ -26,15 +26,10 @@ button {
     font-size: 25px;
 }
 
-[contentEditable=true]:empty:before {
-    content: attr(placeholder);
-    opacity: 0.6;
-  }
-
 .BtnContainer {
     display: grid;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
-    grid-template-columns: 250px 250px;
+    grid-template-columns: 200px 200px 200px;
     gap: 10px;
 }

@@ -5,10 +5,10 @@ const fs = require('fs')
 
 let dirArr = [];
 let nameArr = [];
-
+///mnt/c/Scripts
 //Need to filter .ps1 and .bat for different command calling.
 loopDir = () => {
-  const directory = "/mnt/c/Scripts";
+  const directory = "./Scripts";
         const files = fs.readdirSync(directory);
 
         files.forEach(file => {
@@ -34,7 +34,7 @@ contextBridge.exposeInMainWorld('startWindow', {
 function wslToWindowsPath(wslPath) {
     if (wslPath.startsWith('/mnt/')) {
       const driveLetter = wslPath.charAt(5);
-      const windowsPath = `${driveLetter}:\\${wslPath.substring(7).replace(/\//g, '\\')}`;
+      const windowsPath = `${c}:\\${wslPath.substring(7).replace(/\//g, '\\')}`;
       const w = windowsPath.replace(/\\/g,'\\\\');
       return w;
     }
@@ -44,9 +44,9 @@ function wslToWindowsPath(wslPath) {
 contextBridge.exposeInMainWorld('scriptCalls', {
     scriptRun: (directory) => {
 
-        if(path.extname(`${wslToWindowsPath(directory)}`) === '.bat'){
-            console.log(wslToWindowsPath(directory));
-            const child = spawnSync('cmd.exe', ['/c',`${wslToWindowsPath(directory)}`], {encoding: 'utf8'});
+        if(path.extname(`${directory}`) === '.bat'){
+            console.log(directory);
+            const child = spawnSync('cmd.exe', ['/c',`${directory}`], {encoding: 'utf8'});
             return(child.stdout);
         } else {
             const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${wslToWindowsPath(directory)}`], {encoding: 'utf8'});

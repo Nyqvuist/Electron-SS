@@ -42,7 +42,8 @@
     font-size: 25px;
     color: #5b13ec;
     font-weight: bolder;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     white-space: nowrap;
   }
 

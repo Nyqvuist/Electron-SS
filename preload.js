@@ -9,6 +9,9 @@ let nameArr = [];
 //Need to filter .ps1 and .bat for different command calling.
 loopDir = () => {
   const directory = "./Scripts";
+  if(!fs.existsSync(directory)){
+    fs.mkdirSync(directory);
+  }
         const files = fs.readdirSync(directory);
 
         files.forEach(file => {
@@ -41,11 +44,17 @@ function wslToWindowsPath(wslPath) {
       return wslPath;
   }
 
+contextBridge.exposeInMainWorld('dirCall', {
+    openDir: () => {
+        const dir = "./Scripts";
+        execSync('start "" ".\\Scripts"');
+    }
+})
+
 contextBridge.exposeInMainWorld('scriptCalls', {
     scriptRun: (directory) => {
 
         if(path.extname(`${directory}`) === '.bat'){
-            console.log(directory);
             const child = spawnSync('cmd.exe', ['/c',`${directory}`], {encoding: 'utf8'});
             return(child.stdout);
         } else {

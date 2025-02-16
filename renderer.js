@@ -24,7 +24,7 @@ for(let i = 0; i < dirArray[0].length; i++){
    buttonContainer.append(btn);
 }
 
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll(".BtnContainer button");
 buttons.forEach(button => {
    button.addEventListener("click", e=> {
       let id = e.target.id;
@@ -34,3 +34,9 @@ buttons.forEach(button => {
    })
 })
 
+const fldrBtn = document.querySelectorAll(".fixed-button button");
+fldrBtn.forEach(btn => {
+   btn.addEventListener("click", e => {
+      window.dirCall.openDir();
+   })
+})

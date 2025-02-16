@@ -18,7 +18,7 @@ loopDir = () => {
             if (path.extname(`${file}`) === '.bat' || path.extname(`${file}`) === '.ps1'){
               const fullDir = path.join(directory, file);
               const name = path.parse(file);
-              nameArr.push(name.name);
+              nameArr.push(name.name.slice(0,12));
               dirArr.push(fullDir);
             }
         })

@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const { spawnSync, execSync, execFileSync} = require('child_process');
+const { spawnSync, execSync, execFileSync, spawn} = require('child_process');
 const path = require('node:path')
 const fs = require('fs')
 
@@ -58,8 +58,16 @@ contextBridge.exposeInMainWorld('scriptCalls', {
             const child = spawnSync('cmd.exe', ['/c',`${directory}`], {encoding: 'utf8'});
             return(child.stdout);
         } else {
-            const child = spawnSync('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${wslToWindowsPath(directory)}`], {encoding: 'utf8'});
-            return(child.stdout);
+            let output = '';
+            const child = spawn('powershell.exe',['-ExecutionPolicy', 'Bypass', '-File',`${wslToWindowsPath(directory)}`], {encoding: 'utf8'});
+            child.stdout.on('data', (data) => {
+                output += data.toString();
+                const event = new CustomEvent('data-from-preload', {
+                    detail: output
+                });
+                window.dispatchEvent(event);
+            })
+            // return(child.stdout);
         }
 
         // if(path.extname(`${directory}`) === '.bat'){

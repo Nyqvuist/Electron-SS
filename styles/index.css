@@ -42,9 +42,8 @@
     font-size: 25px;
     color: #5b13ec;
     font-weight: bolder;
-    overflow-y: auto;
     overflow-x: hidden;
-    white-space: nowrap;
+    overflow-y: auto;
   }
 
 .BtnContainer {

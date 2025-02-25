@@ -1,6 +1,14 @@
 const buttonContainer = document.querySelector(".BtnContainer");
 const dirArray = window.startWindow.grabDir();
 
+let bufferedData = null;
+
+window.addEventListener('data-from-preload', (event) => {
+   const data = event.detail;
+   bufferedData = data;
+   document.getElementById('output').textContent = bufferedData;
+})
+
 for(let i = 0; i < dirArray[0].length; i++){
    const btn = document.createElement("button");
    btn.id = `btn${i+1}`;
@@ -24,13 +32,14 @@ for(let i = 0; i < dirArray[0].length; i++){
    buttonContainer.append(btn);
 }
 
+
 const buttons = document.querySelectorAll(".BtnContainer button");
 buttons.forEach(button => {
    button.addEventListener("click", e=> {
       let id = e.target.id;
       let directory = document.getElementById(`${id}`).value;
-      let data = window.scriptCalls.scriptRun(directory);
-      document.getElementById('output').textContent = data;
+      data = window.scriptCalls.scriptRun(directory);
+      
    })
 })
 
@@ -40,3 +49,5 @@ fldrBtn.forEach(btn => {
       window.dirCall.openDir();
    })
 })
+
+

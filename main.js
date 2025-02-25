@@ -1,9 +1,11 @@
 const { app, BrowserWindow } = require('electron/main');
 const path = require('node:path');
-const fs = require('fs');
-//can loop through here, read directory and make buttons.
 
-const createWindow = () => {
+app.disableHardwareAcceleration();
+
+let win;
+
+function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
     height: 768,
@@ -14,11 +16,13 @@ const createWindow = () => {
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile('index.html');
+
+  return win;
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  win = createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

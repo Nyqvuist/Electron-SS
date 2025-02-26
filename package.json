@@ -1,13 +1,15 @@
 {
   "name": "synthrun",
-  "version": "0.2.0",
+  "productName": "SynthRun",
+  "version": "0.2.1",
   "description": "Prototype",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,7 @@
   },
   "homepage": "https://github.com/Nyqvuist/Electron-SS#readme",
   "devDependencies": {
-    "@electron-forge/cli": "^7.6.1",
+    "@electron-forge/cli": "^7.7.0",
     "@electron-forge/maker-deb": "^7.6.1",
     "@electron-forge/maker-rpm": "^7.6.1",
     "@electron-forge/maker-squirrel": "^7.6.1",
@@ -29,6 +31,7 @@
     "@electron-forge/plugin-fuses": "^7.6.1",
     "@electron/fuses": "^1.8.0",
     "electron": "^34.1.1",
+    "electron-builder": "^25.1.8",
     "electron-prebuilt-compile": "8.2.0"
   },
   "dependencies": {
@@ -36,5 +39,19 @@
     "path": "^0.12.7",
     "rpmbuild": "^0.0.23",
     "stream": "^0.0.3"
+  },
+  "build": {
+    "appId": "com.Hashashin.SynthRun",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "./art/web-app.ico"
+    },
+    "nsis": {
+      "shortcutName": "SynthRun",
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": true
+    }
   }
 }

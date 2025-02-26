@@ -1,6 +1,6 @@
 {
   "name": "synthrun",
-  "version": "1.0.1",
+  "version": "0.2.0",
   "description": "Prototype",
   "main": "main.js",
   "scripts": {
